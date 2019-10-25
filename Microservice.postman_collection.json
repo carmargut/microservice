@@ -1,0 +1,56 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Microservice",
+		"_postman_id": "fcd68c10-b048-09bb-9262-3816292ee1ae",
+		"description": "\t",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create transaction",
+			"request": {
+				"url": "http://localhost:8080/createtransaction",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "reference",
+							"value": "asdf4ds",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "account_iban",
+							"value": "942164196728736489234",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "12",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/",
+			"request": {
+				"url": "http://localhost:8080/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
