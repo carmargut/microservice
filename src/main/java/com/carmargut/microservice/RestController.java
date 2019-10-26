@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.carmargut.microservice.assets.*;
-
-import java.time.LocalDateTime;
+ 
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +20,10 @@ public class RestController {
 	private AccountRepository ar;
 
 	@GetMapping(path = "/")
-	public @ResponseBody List<Transaction> getAllIngredients() {
+	public @ResponseBody List<Account> getAll() {
 
 		LOGGER.info("Accessing to / access point");
-		return tr.findAll();
+		return ar.findAll();
 	}
 
 	@PostMapping(path = "/createtransaction")
@@ -38,29 +37,24 @@ public class RestController {
 
 		LOGGER.info("Accessing to /createtransaction access point");
 
-		Transaction t = new Transaction();
-		t.setReference(reference);
+		Transaction transaction = new Transaction(reference, date, amount, fee, description);
 
-		Optional<Account> optionalAccount = ar.findById(account_iban);
+		// I assume the only way to create accounts is to insert them with a new
+		// transaction.
 		Account account;
+		Optional<Account> optionalAccount = ar.findById(account_iban);
 		if (optionalAccount.isPresent()) {
 			account = optionalAccount.get();
-			t.setAccount_iban(account);
-			ar.save(account);
 		} else {
-			account = new Account();
-			t.setAccount_iban(account);
+			account = new Account(account_iban);
 			ar.save(account);
 		}
-
-			t.setDate(LocalDateTime.now());
-		t.setAmount(Double.valueOf(amount));
-		t.setFee(Double.valueOf(fee));
-		t.setDescription(description);
-
-		LOGGER.debug("Transaction created: " + t.toString());
-		tr.save(t);
-		return t;
+		
+		account.setTransaction(transaction);
+		tr.save(transaction);
+		ar.save(account);
+		
+		return transaction;
 	}
 
 }

@@ -1,0 +1,73 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Microservice",
+		"_postman_id": "67038f71-1d17-d07e-6d4b-8ea5c8328ed6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Accounts",
+			"request": {
+				"url": "localhost:8080/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction",
+			"request": {
+				"url": "localhost:8080/createtransaction",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "account_iban",
+							"value": "FPTMKQIYQGMSRQJOXUBPOUSCZKVQRZIIDK",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "554.87",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "fee",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "2019-07-16T16:55:42.000Z",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Restaurant payment",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "reference",
+							"value": "alskdfjlsaf",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

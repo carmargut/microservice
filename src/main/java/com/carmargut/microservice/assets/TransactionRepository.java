@@ -20,6 +20,10 @@ public interface TransactionRepository extends Repository<Transaction,String>{
 	 */
 	List<Transaction> findAll();
 
+	/**
+	 * Saves the entity into the database
+	 * @param t
+	 */
 	void save(Transaction t);
 
 }
