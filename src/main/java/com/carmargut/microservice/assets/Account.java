@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.carmargut.microservice.exceptions.InsufficientBalanceException;
+import com.carmargut.microservice.exceptions.account.InsufficientBalanceException;
 import com.carmargut.microservice.utils.RandomStringGenerator;
 
 /**

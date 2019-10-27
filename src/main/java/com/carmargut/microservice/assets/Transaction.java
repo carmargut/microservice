@@ -12,6 +12,11 @@ import javax.persistence.Id;
 
 
 import com.carmargut.microservice.exceptions.*;
+import com.carmargut.microservice.exceptions.fees.FeeException;
+import com.carmargut.microservice.exceptions.fees.InvalidFeeException;
+import com.carmargut.microservice.exceptions.fees.NegativeFeeException;
+import com.carmargut.microservice.exceptions.parameters.InvalidAmountException;
+import com.carmargut.microservice.exceptions.parameters.WrongDateFormatException;
 import com.carmargut.microservice.utils.RandomStringGenerator;
 
 /**

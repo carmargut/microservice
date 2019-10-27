@@ -1,4 +1,4 @@
-package com.carmargut.microservice.exceptions;
+package com.carmargut.microservice.exceptions.fees;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

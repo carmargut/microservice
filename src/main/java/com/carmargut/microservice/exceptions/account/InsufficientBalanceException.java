@@ -1,6 +1,9 @@
-package com.carmargut.microservice.exceptions;
+package com.carmargut.microservice.exceptions.account;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.carmargut.microservice.exceptions.MicroserviceException;
+
 import org.springframework.http.HttpStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Balance cannot be negative")
