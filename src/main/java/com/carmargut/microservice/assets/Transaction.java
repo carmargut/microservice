@@ -30,7 +30,7 @@ public class Transaction {
 	
 	public Transaction() {}
 
-	public Transaction(String reference, String date, String amount, String fee, String description) throws FeeException {
+	public Transaction(String reference, String date, String amount, String fee, String description) throws MicroserviceException {
 		if (reference != null) {
 			this.reference = reference;
 		} else {

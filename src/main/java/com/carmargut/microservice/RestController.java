@@ -34,7 +34,7 @@ public class RestController {
 			@RequestParam(value = "date", required = false) String date,
 			@RequestParam(value = "amount", required = true) String amount,
 			@RequestParam(value = "fee", defaultValue = "0") String fee,
-			@RequestParam(value = "description", required = false) String description) throws FeeException {
+			@RequestParam(value = "description", required = false) String description) throws MicroserviceException {
 
 		LOGGER.info("Accessing to /createtransaction access point");
 
