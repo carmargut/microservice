@@ -47,7 +47,7 @@
 						},
 						{
 							"key": "date",
-							"value": "2019-07-16T16:55:42.000Z",
+							"value": "2019-10-27T16:55:42.000Z",
 							"description": "",
 							"type": "text"
 						},
@@ -59,7 +59,7 @@
 						},
 						{
 							"key": "reference",
-							"value": "alskdfjlsaf",
+							"value": "t1",
 							"description": "",
 							"type": "text"
 						}
@@ -98,7 +98,7 @@
 						},
 						{
 							"key": "date",
-							"value": "2019-07-24T16:55:42.000Z",
+							"value": "2019-10-28T16:55:42.000Z",
 							"description": "",
 							"type": "text"
 						},
@@ -110,10 +110,9 @@
 						},
 						{
 							"key": "reference",
-							"value": "alskdfjlsaf",
+							"value": "t2",
 							"description": "",
-							"type": "text",
-							"disabled": true
+							"type": "text"
 						}
 					]
 				},
@@ -150,7 +149,7 @@
 						},
 						{
 							"key": "date",
-							"value": "2019-08-26T16:55:42.000Z",
+							"value": "2019-10-29T16:55:42.000Z",
 							"description": "",
 							"type": "text"
 						},
@@ -162,10 +161,9 @@
 						},
 						{
 							"key": "reference",
-							"value": "alskdfjlsaf",
+							"value": "t3",
 							"description": "",
-							"type": "text",
-							"disabled": true
+							"type": "text"
 						}
 					]
 				},
@@ -307,6 +305,41 @@
 						{
 							"key": "amountOrder",
 							"value": "asc",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get Status",
+			"request": {
+				"url": {
+					"raw": "localhost:8080/getstatus?reference=t3&channel=internal",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getstatus"
+					],
+					"query": [
+						{
+							"key": "reference",
+							"value": "t3",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "channel",
+							"value": "internal",
 							"equals": true,
 							"description": ""
 						}
