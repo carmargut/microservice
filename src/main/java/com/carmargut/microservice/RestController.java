@@ -3,10 +3,13 @@ package com.carmargut.microservice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.*;
 import com.carmargut.microservice.assets.*;
 import com.carmargut.microservice.exceptions.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,12 +53,57 @@ public class RestController {
 			account = new Account(account_iban);
 			ar.save(account);
 		}
-		
+
 		account.setTransaction(transaction);
 		tr.save(transaction);
 		ar.save(account);
-		
+
 		return transaction;
+	}
+
+	@GetMapping(path = "/searchtransactions")
+	@ResponseBody
+	public List<Transaction> searchTransactions(
+			@RequestParam(value = "account_iban", required = false) String account_iban,
+			@RequestParam(value = "amountOrder", defaultValue = "asc", required = false) String order)
+			throws MicroserviceException {
+
+		LOGGER.info("Accessing to /gettransactions access point");
+
+		Direction direction;
+		switch (order) {
+		case "asc":
+			direction = Sort.Direction.ASC;
+			break;
+		case "desc":
+			direction = Sort.Direction.DESC;
+			break;
+		default:
+			throw new BadOrderParameterException();
+		}
+
+		List<Transaction> list;
+
+		if (account_iban != null) {
+			Optional<Account> account = ar.findById(account_iban);
+			if (account.isPresent()) {
+				list = account.get().getTransactionList();
+			} else {
+				throw new AccountNotFoundException();
+			}
+			switch (order) {
+			case "asc":
+				list.sort(Comparator.comparing(Transaction::getAmount));
+				break;
+			case "desc":
+				list.sort(Comparator.comparing(Transaction::getAmount).reversed());
+				break;
+			}
+		} else {
+			list = tr.findAll(Sort.by(direction, "amount")); 
+		}
+
+		return list;
 	}
 
 }
