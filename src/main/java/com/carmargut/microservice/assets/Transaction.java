@@ -10,7 +10,8 @@ import java.time.format.DateTimeParseException;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import com.carmargut.microservice.exceptions.WrongDateFormat;
+
+import com.carmargut.microservice.exceptions.*;
 import com.carmargut.microservice.utils.RandomStringGenerator;
 
 /**
@@ -29,7 +30,7 @@ public class Transaction {
 	
 	public Transaction() {}
 
-	public Transaction(String reference, String date, String amount, String fee, String description) {
+	public Transaction(String reference, String date, String amount, String fee, String description) throws FeeException {
 		if (reference != null) {
 			this.reference = reference;
 		} else {
@@ -39,12 +40,12 @@ public class Transaction {
 		try {
 			this.date = LocalDateTime.parse(date,DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 		} catch(DateTimeParseException dtpe) {
-			throw new WrongDateFormat();
+			throw new WrongDateFormatException();
 		} catch (NullPointerException e) {
 			this.date = null;
 		}
 		this.amount = Double.valueOf(amount);
-		this.fee = Double.valueOf(fee);
+		setFee(fee);
 		this.description = description;
 	}
 
@@ -54,6 +55,21 @@ public class Transaction {
 
 	public double getFee() {
 		return fee;
+	}
+	
+	private void setFee(String stringFee) throws FeeException {
+		double fee;
+		try {
+			fee = Double.valueOf(stringFee);
+			if(fee >= 0) {
+				this.fee = fee;
+			} else {
+				throw new NegativeFeeException();
+			}
+		}catch (NumberFormatException e) {
+			throw new InvalidFeeException();
+		}
+		
 	}
 
 	@Override

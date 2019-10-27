@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.carmargut.microservice.assets.*;
- 
+import com.carmargut.microservice.exceptions.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class RestController {
 			@RequestParam(value = "date", required = false) String date,
 			@RequestParam(value = "amount", required = true) String amount,
 			@RequestParam(value = "fee", defaultValue = "0") String fee,
-			@RequestParam(value = "description", required = false) String description) {
+			@RequestParam(value = "description", required = false) String description) throws FeeException {
 
 		LOGGER.info("Accessing to /createtransaction access point");
 
