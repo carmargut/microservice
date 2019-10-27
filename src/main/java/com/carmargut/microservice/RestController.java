@@ -5,11 +5,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import com.carmargut.microservice.assets.*;
 import com.carmargut.microservice.exceptions.MicroserviceException;
 import com.carmargut.microservice.exceptions.account.AccountNotFoundException;
 import com.carmargut.microservice.exceptions.parameters.BadOrderParameterException;
+import com.carmargut.microservice.rules.ATMChannel;
+import com.carmargut.microservice.rules.Channel;
+import com.carmargut.microservice.rules.ClientChannel;
+import com.carmargut.microservice.rules.InternalChannel;
+import com.carmargut.microservice.rules.status.InvalidStatus;
+import com.carmargut.microservice.rules.status.Status;
 
 import java.util.Comparator;
 import java.util.List;
@@ -102,10 +109,44 @@ public class RestController {
 				break;
 			}
 		} else {
-			list = tr.findAll(Sort.by(direction, "amount")); 
+			list = tr.findAll(Sort.by(direction, "amount"));
 		}
 
 		return list;
+	}
+
+	@GetMapping(path = "/getstatus", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Status getStatus(@RequestParam(value = "reference", required = true) String reference,
+			@RequestParam(value = "channel", required = false) String channelName) throws MicroserviceException {
+
+		if (channelName == null) {
+			return null;
+		}
+		Optional<Transaction> optTransaction = tr.findById(reference);
+
+		if (optTransaction.isPresent()) {
+
+			Transaction transaction = optTransaction.get();
+			Channel channel = null;
+
+			switch (channelName.toUpperCase()) {
+			case "ATM":
+				channel = new ATMChannel();
+				break;
+			case "CLIENT":
+				channel = new ClientChannel();
+				break; 
+			case "INTERNAL":
+				channel = new InternalChannel();
+				break;
+			}
+
+			return channel.getStatus(transaction);
+		} else {
+			return new InvalidStatus(reference);
+		}
+
 	}
 
 }
