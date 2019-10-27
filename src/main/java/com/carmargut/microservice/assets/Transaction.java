@@ -44,7 +44,7 @@ public class Transaction {
 		} catch (NullPointerException e) {
 			this.date = null;
 		}
-		this.amount = Double.valueOf(amount);
+		setAmount(amount);
 		setFee(fee);
 		this.description = description;
 	}
@@ -55,6 +55,26 @@ public class Transaction {
 
 	public double getFee() {
 		return fee;
+	}
+	
+	public LocalDateTime getDate () {
+		return date;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public String getReference() {
+		return reference;
+	}
+	
+	private void setAmount(String amount) throws InvalidAmountException {
+		try {
+			this.amount = Double.valueOf(amount);
+		} catch (NumberFormatException e) {
+			throw new InvalidAmountException();	
+		}
 	}
 	
 	private void setFee(String stringFee) throws FeeException {
