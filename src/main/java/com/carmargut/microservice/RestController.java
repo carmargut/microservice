@@ -148,7 +148,7 @@ public class RestController {
 
 			status = channel.getStatus(transaction);
 		} else {
-			status = new InvalidStatus(reference, null);
+			status = new InvalidStatus(reference);
 		}
 
 		return status.getResponse();

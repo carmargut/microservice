@@ -9,8 +9,8 @@ import java.util.Map;
  */
 public class InvalidStatus extends Status {
 
-	public InvalidStatus(String reference, Map<String, String> amountAndFee) {
-		super(reference, Response.INVALID, amountAndFee);
+	public InvalidStatus(String reference) {
+		super(reference, Response.INVALID, null);
 	}
 
 	@Override
@@ -19,10 +19,7 @@ public class InvalidStatus extends Status {
 
 		response.put("reference", getReference());
 		response.put("status", getStatus());
-
-		for (Map.Entry<String, String> entry : amountAndFee.entrySet()) {
-			response.put(entry.getKey(), entry.getValue());
-		}
+ 
 
 		return response;
 	}
