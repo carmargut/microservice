@@ -20,6 +20,7 @@ import com.carmargut.microservice.rules.status.Status;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @org.springframework.web.bind.annotation.RestController
@@ -49,7 +50,8 @@ public class RestController {
 			@RequestParam(value = "description", required = false) String description) throws MicroserviceException {
 
 		LOGGER.info("Accessing to /createtransaction access point");
-
+		
+		// TODO: Avoid create a new one with an existing reference
 		Transaction transaction = new Transaction(reference, date, amount, fee, description);
 
 		// I assume the only way to create accounts is to insert them with a new
@@ -117,13 +119,15 @@ public class RestController {
 
 	@GetMapping(path = "/getstatus", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Status getStatus(@RequestParam(value = "reference", required = true) String reference,
+	public Map<String, String> getStatus(@RequestParam(value = "reference", required = true) String reference,
 			@RequestParam(value = "channel", required = false) String channelName) throws MicroserviceException {
 
+		// TODO: I don't know why this is optional
 		if (channelName == null) {
 			return null;
 		}
 		Optional<Transaction> optTransaction = tr.findById(reference);
+		Status status;
 
 		if (optTransaction.isPresent()) {
 
@@ -136,16 +140,18 @@ public class RestController {
 				break;
 			case "CLIENT":
 				channel = new ClientChannel();
-				break; 
+				break;
 			case "INTERNAL":
 				channel = new InternalChannel();
 				break;
 			}
 
-			return channel.getStatus(transaction);
+			status = channel.getStatus(transaction);
 		} else {
-			return new InvalidStatus(reference);
+			status = new InvalidStatus(reference, null);
 		}
+
+		return status.getResponse();
 
 	}
 

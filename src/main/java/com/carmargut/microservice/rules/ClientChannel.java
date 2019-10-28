@@ -1,6 +1,8 @@
 package com.carmargut.microservice.rules;
 
 import java.time.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.carmargut.microservice.assets.Transaction;
 import com.carmargut.microservice.rules.status.*;
@@ -13,23 +15,28 @@ public class ClientChannel implements Channel {
 
 	@Override
 	public Status getStatus(Transaction transaction) {
-		
+
 		LocalDate today = LocalDate.now();
 		LocalDate transactionDate = transaction.getDate().toLocalDate();
-		
-		if(transactionDate.isBefore(today)) {
-			return new SettledStatus(transaction.getReference());
+
+		Map<String, String> amountAndFee = new HashMap<String, String>();
+		Double quantity = transaction.getAmount() - transaction.getFee();
+
+		amountAndFee.put("amount", String.valueOf(quantity));
+
+		if (transactionDate.isBefore(today)) {
+			return new SettledStatus(transaction.getReference(), amountAndFee);
 		}
-		
-		if(transactionDate.isEqual(today)) {
-			return new PendingStatus(transaction.getReference());
+
+		if (transactionDate.isEqual(today)) {
+			return new PendingStatus(transaction.getReference(), amountAndFee);
 		}
-		
-		if(transactionDate.isAfter(today)) {
-			return new FutureStatus(transaction.getReference());
+
+		if (transactionDate.isAfter(today)) {
+			return new FutureStatus(transaction.getReference(), amountAndFee);
 		}
-		
+
 		return null; // Unreachable code
 	}
-	
+
 }

@@ -8,9 +8,10 @@ import com.carmargut.microservice.rules.status.Status;
  *
  */
 public interface Channel {
-	
+
 	/**
 	 * Will return the status and additional information for a specific transaction
+	 * 
 	 * @param transaction
 	 * @return
 	 */
