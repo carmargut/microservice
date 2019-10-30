@@ -1,0 +1,357 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Microservice",
+		"_postman_id": "67038f71-1d17-d07e-6d4b-8ea5c8328ed6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Accounts",
+			"request": {
+				"url": "localhost:8080/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction 1",
+			"request": {
+				"url": "localhost:8080/createtransaction",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "account_iban",
+							"value": "FPTMKQIYQGMSRQJOXUBPOUSCZKVQRZIIDK",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "554.87",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "fee",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "2019-10-27T16:55:42.000Z",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Restaurant payment",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "reference",
+							"value": "t1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction 2",
+			"request": {
+				"url": "localhost:8080/createtransaction",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "account_iban",
+							"value": "FPTMKQIYQGMSRQJOXUBPOUSCZKVQRZIIDK",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "46.55",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "fee",
+							"value": "2.12",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "2019-10-28T16:55:42.000Z",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Books payment",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "reference",
+							"value": "t2",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction 3",
+			"request": {
+				"url": "localhost:8080/createtransaction",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "account_iban",
+							"value": "FPTMKQIYQGMSRQJOXUBPOUSCZKVQRZIIDK",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "-35.8",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "fee",
+							"value": "1.09",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "2019-10-29T16:55:42.000Z",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Refund",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "reference",
+							"value": "t3",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction 4",
+			"request": {
+				"url": "localhost:8080/createtransaction",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "account_iban",
+							"value": "FPSDLFKSDFJSDFLSDKFQJOXUBPOUSCZKVSSDFGH",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "57.12",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "fee",
+							"value": "3.89",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "2018-02-05T16:55:42.000Z",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Bizum by John",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction ",
+			"request": {
+				"url": "localhost:8080/createtransaction",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "account_iban",
+							"value": "FPTMKQIYQGMSRQJOXUBPOUSCZKVQRZIIDK",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "554.87",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "fee",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "2019-07-16T16:55:42.000Z",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Restaurant payment",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "reference",
+							"value": "alskdfjlsaf",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search Transactions",
+			"request": {
+				"url": "localhost:8080/searchtransactions",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search Transactions by account",
+			"request": {
+				"url": "localhost:8080/searchtransactions",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search Transactions ordered",
+			"request": {
+				"url": {
+					"raw": "localhost:8080/searchtransactions?amountOrder=asc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"searchtransactions"
+					],
+					"query": [
+						{
+							"key": "amountOrder",
+							"value": "asc",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get Status",
+			"request": {
+				"url": {
+					"raw": "localhost:8080/getstatus?reference=t3&channel=internal",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getstatus"
+					],
+					"query": [
+						{
+							"key": "reference",
+							"value": "t3",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "channel",
+							"value": "internal",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
