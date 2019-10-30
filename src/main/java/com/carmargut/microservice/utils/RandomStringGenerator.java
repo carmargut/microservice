@@ -15,16 +15,21 @@ public class RandomStringGenerator {
 
 	static final int IBAN_LENGTH = 34;
 	static final int REFERENCE_LENGTH = 6;
-	
-	
+
 	public static String createNewIBAN() {
 		return randomString(IBAN_LENGTH);
 	}
-	
+
 	public static String createNewReference() {
 		return randomString(REFERENCE_LENGTH);
 	}
 
+	/**
+	 * creates a random String
+	 * 
+	 * @param targetStringLength length of the String
+	 * @return
+	 */
 	private static String randomString(int targetStringLength) {
 		int leftLimit = 65; // letter 'A'
 		int rightLimit = 90; // letter 'Z'

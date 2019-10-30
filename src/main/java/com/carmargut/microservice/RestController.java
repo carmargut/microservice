@@ -11,6 +11,7 @@ import com.carmargut.microservice.assets.*;
 import com.carmargut.microservice.exceptions.MicroserviceException;
 import com.carmargut.microservice.exceptions.account.AccountNotFoundException;
 import com.carmargut.microservice.exceptions.parameters.BadOrderParameterException;
+import com.carmargut.microservice.exceptions.parameters.ExistingTransactionException;
 import com.carmargut.microservice.rules.ATMChannel;
 import com.carmargut.microservice.rules.Channel;
 import com.carmargut.microservice.rules.ClientChannel;
@@ -33,6 +34,11 @@ public class RestController {
 	@Autowired
 	private AccountRepository ar;
 
+	/**
+	 * Gets all accounts
+	 * 
+	 * @return
+	 */
 	@GetMapping(path = "/")
 	public @ResponseBody List<Account> getAll() {
 
@@ -40,6 +46,18 @@ public class RestController {
 		return ar.findAll();
 	}
 
+	/**
+	 * Create a new transaction and a new account if it does not exist
+	 * 
+	 * @param reference
+	 * @param account_iban mandatory
+	 * @param date
+	 * @param amount       mandatory
+	 * @param fee
+	 * @param description
+	 * @return
+	 * @throws MicroserviceException
+	 */
 	@PostMapping(path = "/createtransaction")
 	@ResponseBody
 	public Transaction createTransaction(@RequestParam(value = "reference", required = false) String reference,
@@ -50,8 +68,12 @@ public class RestController {
 			@RequestParam(value = "description", required = false) String description) throws MicroserviceException {
 
 		LOGGER.info("Accessing to /createtransaction access point");
-		
-		// TODO: Avoid create a new one with an existing reference
+
+		// Avoids create a new one with an existing reference
+		if (reference != null && tr.findById(reference).isPresent()) {
+			throw new ExistingTransactionException();
+		}
+
 		Transaction transaction = new Transaction(reference, date, amount, fee, description);
 
 		// I assume the only way to create accounts is to insert them with a new
@@ -72,6 +94,7 @@ public class RestController {
 		return transaction;
 	}
 
+	// I assume the parameters are passed by query since it's a get request.
 	@GetMapping(path = "/searchtransactions")
 	@ResponseBody
 	public List<Transaction> searchTransactions(
@@ -117,41 +140,47 @@ public class RestController {
 		return list;
 	}
 
+	// I assume the parameters are passed by query since it's a get request.
 	@GetMapping(path = "/getstatus", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String, String> getStatus(@RequestParam(value = "reference", required = true) String reference,
 			@RequestParam(value = "channel", required = false) String channelName) throws MicroserviceException {
 
-		// TODO: I don't know why this is optional
-		if (channelName == null) {
-			return null;
-		}
 		Optional<Transaction> optTransaction = tr.findById(reference);
 		Status status;
 
-		if (optTransaction.isPresent()) {
-
-			Transaction transaction = optTransaction.get();
-			Channel channel = null;
-
-			switch (channelName.toUpperCase()) {
-			case "ATM":
-				channel = new ATMChannel();
-				break;
-			case "CLIENT":
-				channel = new ClientChannel();
-				break;
-			case "INTERNAL":
-				channel = new InternalChannel();
-				break;
-			}
-
-			status = channel.getStatus(transaction);
-		} else {
+		// I don't know why channelName is optional so I return an invalid status
+		if (channelName == null) {
 			status = new InvalidStatus(reference);
+		} else {
+
+			if (optTransaction.isPresent()) {
+
+				Transaction transaction = optTransaction.get();
+				Channel channel = null;
+
+				switch (channelName.toUpperCase()) {
+				case "ATM":
+					channel = new ATMChannel();
+					break;
+				case "CLIENT":
+					channel = new ClientChannel();
+					break;
+				case "INTERNAL":
+					channel = new InternalChannel();
+					break;
+				default: // if the channel name is wrong, I return an invalid status
+					return new InvalidStatus(reference).getResponse();
+				}
+
+				status = channel.getStatus(transaction);
+
+			} else {
+				status = new InvalidStatus(reference);
+			}
 		}
 
-		return status.getResponse();
+		return status.getResponse(); // Gets the JSON format response
 
 	}
 

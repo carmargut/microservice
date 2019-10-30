@@ -3,6 +3,8 @@ package com.carmargut.microservice.rules.status;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.carmargut.microservice.utils.StatusResponseEnum;
+
 /**
  * @author carmargut
  *
@@ -10,7 +12,7 @@ import java.util.Map;
 public class InvalidStatus extends Status {
 
 	public InvalidStatus(String reference) {
-		super(reference, Response.INVALID, null);
+		super(reference, StatusResponseEnum.INVALID, null);
 	}
 
 	@Override

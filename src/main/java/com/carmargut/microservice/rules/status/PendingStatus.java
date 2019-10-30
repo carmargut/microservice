@@ -3,6 +3,8 @@ package com.carmargut.microservice.rules.status;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.carmargut.microservice.utils.StatusResponseEnum;
+
 /**
  * @author carmargut
  *
@@ -12,7 +14,7 @@ public class PendingStatus extends Status {
 	
 	
 	public PendingStatus(String reference, Map<String, String> amountAndFee) {
-		super(reference, Response.PENDING, amountAndFee);
+		super(reference, StatusResponseEnum.PENDING, amountAndFee);
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package com.carmargut.microservice.rules.status;
 
 import java.util.Map;
 
+import com.carmargut.microservice.utils.StatusResponseEnum;
+
 /**
  * @author carmargut
  *
@@ -9,11 +11,11 @@ import java.util.Map;
 public abstract class Status {
 
 	private String reference;
-	private Response status;
+	private StatusResponseEnum status;
 	
 	Map<String,String> amountAndFee;
 
-	public Status(String reference, Response status, Map<String, String> amountAndFee) {
+	public Status(String reference, StatusResponseEnum status, Map<String, String> amountAndFee) {
 		this.setReference(reference);
 		this.setStatus(status);
 		this.amountAndFee = amountAndFee;
@@ -33,7 +35,7 @@ public abstract class Status {
 		return status.toString();
 	}
 
-	protected void setStatus(Response status) {
+	protected void setStatus(StatusResponseEnum status) {
 		this.status = status;
 	}
 }

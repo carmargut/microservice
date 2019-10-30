@@ -3,6 +3,8 @@ package com.carmargut.microservice.rules.status;
 import java.util.HashMap; 
 import java.util.Map;
 
+import com.carmargut.microservice.utils.StatusResponseEnum;
+
 /**
  * @author carmargut
  *
@@ -10,7 +12,7 @@ import java.util.Map;
 public class SettledStatus extends Status {
 
 	public SettledStatus(String reference, Map<String, String> amountAndFee) {
-		super(reference, Response.SETTLED, amountAndFee);
+		super(reference, StatusResponseEnum.SETTLED, amountAndFee);
 	}
 
 	@Override
